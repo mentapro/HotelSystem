@@ -14,7 +14,7 @@ namespace HotelSystem.Model
 
         public int PersonId
         {
-            get { return _personId; }
+            get => _personId;
             set
             {
                 if (value == _personId) return;
@@ -25,7 +25,7 @@ namespace HotelSystem.Model
 
         public string FirstName
         {
-            get { return _firstName; }
+            get => _firstName;
             set
             {
                 if (value == _firstName) return;
@@ -36,7 +36,7 @@ namespace HotelSystem.Model
 
         public string LastName
         {
-            get { return _lastName; }
+            get => _lastName;
             set
             {
                 if (value == _lastName) return;
@@ -47,7 +47,7 @@ namespace HotelSystem.Model
 
         public DateTime? Birthdate
         {
-            get { return _birthdate; }
+            get => _birthdate;
             set
             {
                 if (value.Equals(_birthdate)) return;

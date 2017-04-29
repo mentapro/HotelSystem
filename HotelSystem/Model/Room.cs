@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using HotelSystem.Annotations;
 
@@ -6,10 +7,11 @@ namespace HotelSystem.Model
 {
     public enum RoomTypes
     {
-        StandardRoom = 0,
-        BusinessClassRoom = 1,
-        JuniorSuite = 2,
-        PresidentialSuite = 3
+        None,
+        StandardRoom,
+        BusinessClassRoom,
+        JuniorSuite,
+        PresidentialSuite
     }
 
     public class Room : INotifyPropertyChanged
@@ -17,10 +19,11 @@ namespace HotelSystem.Model
         private RoomTypes _type;
         private string _number;
         private int _roomId;
+        private IList<Client> _clients;
 
         public int RoomId
         {
-            get { return _roomId; }
+            get => _roomId;
             set
             {
                 if (value == _roomId) return;
@@ -31,7 +34,7 @@ namespace HotelSystem.Model
 
         public string Number
         {
-            get { return _number; }
+            get => _number;
             set
             {
                 if (value == _number) return;
@@ -42,11 +45,22 @@ namespace HotelSystem.Model
 
         public RoomTypes Type
         {
-            get { return _type; }
+            get => _type;
             set
             {
                 if (value == _type) return;
                 _type = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public virtual IList<Client> Clients
+        {
+            get => _clients;
+            set
+            {
+                if (Equals(value, _clients)) return;
+                _clients = value;
                 OnPropertyChanged();
             }
         }
@@ -57,6 +71,11 @@ namespace HotelSystem.Model
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public Room()
+        {
+            _clients = new List<Client>();
         }
     }
 }

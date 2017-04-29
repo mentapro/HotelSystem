@@ -5,12 +5,7 @@ namespace HotelSystem.HotelDbContext
 {
     public class HotelContext : DbContext
     {
-        public HotelContext()
-        {
-            
-        }
-
-        public HotelContext(string connectionString)
+        public HotelContext(string connectionString = "HotelDbConnectionString")
             : base(connectionString)
         {
             

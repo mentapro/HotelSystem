@@ -8,6 +8,7 @@ namespace HotelSystem.HotelDbContext
         public ClientConfig()
         {
             Property(client => client.Account).IsOptional().HasMaxLength(20);
+            HasRequired(client => client.Room);
             
             ToTable("Clients");
         }

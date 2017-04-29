@@ -12,7 +12,7 @@ namespace HotelSystem
         public MainWindow()
         {
             InitializeComponent();
-            RoomTypeCb.ItemsSource = Enum.GetNames(typeof(RoomTypes));
+            RoomTypeCb.ItemsSource = RtCbFilter.ItemsSource = Enum.GetNames(typeof(RoomTypes));
         }
     }
 }

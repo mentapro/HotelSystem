@@ -102,6 +102,7 @@
     <Compile Include="HotelDbContext\ClientConfig.cs" />
     <Compile Include="HotelDbContext\PersonConfig.cs" />
     <Compile Include="HotelDbContext\RoomConfig.cs" />
+    <Compile Include="Miscellaneous\XamlConverters.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="HotelDbContext\HotelContext.cs" />
     <Compile Include="Model\Person.cs" />
@@ -154,8 +155,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Miscellaneous\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
