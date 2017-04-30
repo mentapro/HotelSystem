@@ -46,7 +46,7 @@ namespace HotelSystem.ViewModel
             Context = context;
             Context.Rooms.Load();
         }
-
+        
         #region Commands
 
         private RelayCommand _addRoomCommand;

@@ -20,9 +20,9 @@ namespace HotelSystem
             RoomTypeCb.ItemsSource = RtCbFilter.ItemsSource = Enum.GetNames(typeof(RoomTypes));
 
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<HotelContext>());
-            //Database.SetInitializer(new DropCreateDatabaseAlways<HotelContext>());
+            //Database.SetInitializer(new DropCreateDatabaseAlways<HotelContext>()); // set it if you want to recreate database
             Context = new HotelContext();
-            //Fill();
+            //Fill(); // uncomment if you want to fill database with default values
             ClientsTab.DataContext = new ClientsTabViewModel(Context);
             RoomsTab.DataContext = new RoomsTabViewModel(Context);
         }

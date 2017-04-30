@@ -18,7 +18,7 @@
             <Setter Property="CanUserDeleteRows" Value="False"/>
         </Style>
     </Window.Resources>
-
+    
     <!-- < Clients TAB > -->
     <TabControl>
         <TabItem x:Name="ClientsTab" Header="Clients" d:DataContext="{d:DesignInstance d:Type=local:ClientsTabViewModel}">
@@ -42,7 +42,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </DataGrid>
-
+                
                 <!-- < Clients CRUD > -->
                 <Border Grid.Column="1" BorderThickness="1" Margin="50" CornerRadius="10" BorderBrush="LightBlue">
                     <Grid>
