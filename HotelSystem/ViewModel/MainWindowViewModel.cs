@@ -29,6 +29,7 @@ namespace HotelSystem.ViewModel
         
         public Room RoomInfo { get; set; } = new Room();
         public Room RoomFilter { get; set; } = new Room();
+        public int RoomFreedomFilterIndex { get; set; }
         public Client ClientInfo { get; set; } = new Client();
         public Client ClientFilter { get; set; } = new Client();
 
@@ -61,11 +62,7 @@ namespace HotelSystem.ViewModel
         public HotelContext Context
         {
             get => _context ?? (_context = new HotelContext());
-            set
-            {
-                _context = value;
-                RaisePropertyChanged();
-            }
+            set => _context = value;
         }
         
         #region RoomCommands
@@ -106,6 +103,7 @@ namespace HotelSystem.ViewModel
                 },
                 () =>
                 {
+                    if (SelectedRoom == null) return false;
                     if (string.IsNullOrEmpty(RoomInfo.Number) || RoomInfo.Type == RoomTypes.None)
                     {
                         return false;
@@ -136,7 +134,6 @@ namespace HotelSystem.ViewModel
                     tuple.Item1.Text = string.Empty;
                     tuple.Item2.SelectedIndex = 0;
                     tuple.Item3.SelectedIndex = 0;
-                    RoomsFilterChangedCommand.Execute(0);
                 },
                 parameters =>
                 {
@@ -164,11 +161,11 @@ namespace HotelSystem.ViewModel
                     },
                     room => room != null));
 
-        private RelayCommand<int> _roomsFilterChangedCommand;
+        private RelayCommand _roomsFilterChangedCommand;
 
-        public RelayCommand<int> RoomsFilterChangedCommand =>
+        public RelayCommand RoomsFilterChangedCommand =>
             _roomsFilterChangedCommand ?? (_roomsFilterChangedCommand =
-                new RelayCommand<int>(roomFreedom =>
+                new RelayCommand(() =>
                 {
                     IEnumerable<Room> queryResult = Context.Rooms.Local;
                     if (!string.IsNullOrEmpty(RoomFilter.Number))
@@ -179,11 +176,11 @@ namespace HotelSystem.ViewModel
                     {
                         queryResult = queryResult.Where(room => room.Type == RoomFilter.Type);
                     }
-                    if (roomFreedom == 1)
+                    if (RoomFreedomFilterIndex == 1)
                     {
                         queryResult = queryResult.Where(room => room.Clients.Count == 0);
                     }
-                    if (roomFreedom == 2)
+                    if (RoomFreedomFilterIndex == 2)
                     {
                         queryResult = queryResult.Where(room => room.Clients.Count > 0);
                     }
@@ -238,6 +235,7 @@ namespace HotelSystem.ViewModel
                 },
                 () =>
                 {
+                    if (SelectedClient == null) return false;
                     if (string.IsNullOrEmpty(ClientInfo.FirstName)
                         || string.IsNullOrEmpty(ClientInfo.LastName)
                         || ClientInfo.Room == null)
@@ -338,9 +336,39 @@ namespace HotelSystem.ViewModel
 
         public MainWindowViewModel()
         {
+            //Database.SetInitializer(new DropCreateDatabaseAlways<HotelContext>());
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<HotelContext>());
             Context.Clients.Load();
             Context.Rooms.Load();
+            //Fill();
+        }
+
+        private void Fill()
+        {
+            var rooms = new[]
+            {
+                new Room {Number = "1", Type = RoomTypes.StandardRoom},
+                new Room {Number = "2", Type = RoomTypes.JuniorSuite},
+                new Room {Number = "3", Type = RoomTypes.StandardRoom},
+                new Room {Number = "4", Type = RoomTypes.PresidentialSuite},
+                new Room {Number = "5", Type = RoomTypes.JuniorSuite},
+                new Room {Number = "6", Type = RoomTypes.StandardRoom},
+                new Room {Number = "7", Type = RoomTypes.PresidentialSuite}
+            };
+
+            var clients = new[]
+            {
+                new Client {FirstName = "Stanislav", LastName = "Herasymiuk", Account = "stas_the_best", Room = rooms[1]},
+                new Client {FirstName = "Bob", LastName = "Marley", Account = "919191", Room = rooms[3]},
+                new Client {FirstName = "Frank", LastName = "Sinatra", Account = "100500", Room = rooms[3]},
+                new Client {FirstName = "Phill", LastName = "Colson", Account = "S.H.I.E.L.D.", Room = rooms[5]},
+                new Client {FirstName = "Dayzee", LastName = "Skay", Account = "Hydra", Room = rooms[4]},
+                new Client {FirstName = "Elvis", LastName = "Presley", Account = "YA krevedko", Room = rooms[6]}
+            };
+
+            Context.Rooms.AddRange(rooms);
+            Context.Clients.AddRange(clients);
+            Context.SaveChanges();
         }
     }
 }

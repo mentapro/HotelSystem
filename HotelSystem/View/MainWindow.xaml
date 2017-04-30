@@ -273,18 +273,18 @@
                                 <TextBox x:Name="RnTbFilter" Grid.Row="0" Grid.Column="1" Margin="3" Text="{Binding RoomFilter.Number, UpdateSourceTrigger=PropertyChanged}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="TextChanged">
-                                            <i:InvokeCommandAction Command="{Binding RoomsFilterChangedCommand}" CommandParameter="{Binding ElementName=RfCbFilter, Path=SelectedIndex}"/>
+                                            <i:InvokeCommandAction Command="{Binding RoomsFilterChangedCommand}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </TextBox>
                                 <ComboBox x:Name="RtCbFilter" Grid.Row="1" Grid.Column="1" Margin="3" SelectedItem="{Binding RoomFilter.Type}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
-                                            <i:InvokeCommandAction Command="{Binding RoomsFilterChangedCommand}" CommandParameter="{Binding ElementName=RfCbFilter, Path=SelectedIndex}"/>
+                                            <i:InvokeCommandAction Command="{Binding RoomsFilterChangedCommand}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </ComboBox>
-                                <ComboBox x:Name="RfCbFilter" Grid.Row="2" Grid.Column="1" Margin="3">
+                                <ComboBox x:Name="RfCbFilter" Grid.Row="2" Grid.Column="1" Margin="3" SelectedIndex="{Binding RoomFreedomFilterIndex, Mode=TwoWay}">
                                     <ComboBox.Items>
                                         <TextBlock Text="None"/>
                                         <TextBlock Text="Free"/>
@@ -292,7 +292,7 @@
                                     </ComboBox.Items>
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
-                                            <i:InvokeCommandAction Command="{Binding RoomsFilterChangedCommand}" CommandParameter="{Binding ElementName=RfCbFilter, Path=SelectedIndex}"/>
+                                            <i:InvokeCommandAction Command="{Binding RoomsFilterChangedCommand}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </ComboBox>
