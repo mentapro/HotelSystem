@@ -21,7 +21,7 @@
     
     <!-- < Clients TAB > -->
     <TabControl>
-        <TabItem x:Name="ClientsTab" Header="Clients" d:DataContext="{d:DesignInstance d:Type=local:ClientsTabViewModel}">
+        <TabItem x:Name="ClientsTab" Header="Clients" d:DataContext="{d:DesignInstance d:Type=local:ClientsTabViewModel, IsDesignTimeCreatable=True}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -193,7 +193,7 @@
         <!-- </ Clients TAB > -->
 
         <!-- < Hotel room TAB > -->
-        <TabItem x:Name="RoomsTab" Header="Hotel rooms" d:DataContext="{d:DesignInstance d:Type=local:RoomsTabViewModel}">
+        <TabItem x:Name="RoomsTab" Header="Hotel rooms" d:DataContext="{d:DesignInstance d:Type=local:RoomsTabViewModel, IsDesignTimeCreatable=True}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
