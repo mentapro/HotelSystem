@@ -108,7 +108,7 @@
     <Compile Include="Model\Person.cs" />
     <Compile Include="Model\Room.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\ClientsTabViewModel.cs" />
     <Compile Include="ViewModel\RoomsTabViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

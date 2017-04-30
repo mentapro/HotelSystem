@@ -19,13 +19,9 @@
         </Style>
     </Window.Resources>
 
-    <Window.DataContext>
-        <local:MainWindowViewModel/>
-    </Window.DataContext>
-
     <!-- < Clients TAB > -->
     <TabControl>
-        <TabItem Header="Clients">
+        <TabItem x:Name="ClientsTab" Header="Clients" d:DataContext="{d:DesignInstance d:Type=local:ClientsTabViewModel}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -42,7 +38,7 @@
                     </DataGrid.Columns>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="{Binding ClientsGridSelectionChangedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=SelectedItem}"/>
+                            <i:InvokeCommandAction Command="{Binding ClientsGridSelectionChangedCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </DataGrid>
@@ -197,7 +193,7 @@
         <!-- </ Clients TAB > -->
 
         <!-- < Hotel room TAB > -->
-        <TabItem Header="Hotel rooms">
+        <TabItem x:Name="RoomsTab" Header="Hotel rooms" d:DataContext="{d:DesignInstance d:Type=local:RoomsTabViewModel}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -211,7 +207,7 @@
                     </DataGrid.Columns>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="{Binding RoomsGridSelectionChangedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=SelectedItem}"/>
+                            <i:InvokeCommandAction Command="{Binding RoomsGridSelectionChangedCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </DataGrid>
@@ -252,6 +248,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
+                        <!-- < Rooms Filter > -->
                         <Expander Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Header="Filters">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -314,6 +311,7 @@
                                 </DataGrid>
                             </Grid>
                         </Expander>
+                        <!-- </ Rooms Filter > -->
                     </Grid>
                 </Border>
                 <!-- </ Hotel rooms CRUD > -->
