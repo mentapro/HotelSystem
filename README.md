@@ -3,7 +3,7 @@
 - Entity Framework Example
 - WPF
 
-This application (WPF) works with databade Microsoft SQL Server through Entity Framework.
+This application (WPF) works with database Microsoft SQL Server through Entity Framework.
 I tried to write clean code. I used MVVM pattern and followed SOLID principles.
 
 Current application represents database for hotel. There are rooms and clients. Each room can contain many clients but one client can live only in one room.
