@@ -19,8 +19,8 @@
         </Style>
     </Window.Resources>
     
-    <!-- < Clients TAB > -->
     <TabControl>
+        <!-- < Clients TAB > -->
         <TabItem x:Name="ClientsTab" Header="Clients" d:DataContext="{d:DesignInstance d:Type=local:ClientsTabViewModel, IsDesignTimeCreatable=True}">
             <Grid>
                 <Grid.ColumnDefinitions>
