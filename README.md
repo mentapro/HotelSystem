@@ -1,5 +1,5 @@
 # HotelSystem
-- MVVM Exapmle
+- MVVM Example
 - Entity Framework Example
 - WPF
 
