@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -8,6 +9,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using HotelSystem.HotelDbContext;
 using HotelSystem.Model;
+using Microsoft.Win32;
 
 namespace HotelSystem.ViewModel
 {
@@ -35,12 +37,13 @@ namespace HotelSystem.ViewModel
             Context = context;
             Context.Clients.Load();
         }
-        
+
         #region Commands
 
         private RelayCommand _addClientCommand;
         private RelayCommand _updateClientCommand;
         private RelayCommand _deleteClientCommand;
+        private RelayCommand _exportClientsCommand;
         private RelayCommand<object> _resetFilterClientCommand;
         private RelayCommand _clientsGridSelectionChangedCommand;
         private RelayCommand _clientsFilterChangedCommand;
@@ -104,6 +107,37 @@ namespace HotelSystem.ViewModel
                     Context.SaveChanges();
                 },
                 () => SelectedClient != null));
+
+        public ICommand ExportClientsCommand =>
+            _exportClientsCommand ??
+            (_exportClientsCommand = new RelayCommand(
+                () =>
+                {
+                    var clientsExport = Context.Clients.Select(client => new ClientInfo
+                    {
+                        FirstName = client.FirstName,
+                        LastName = client.LastName,
+                        Birthdate = client.Birthdate.Value,
+                        Account = client.Account,
+                        RoomNumber = client.Room.Number
+                    });
+                    var saveDialog = new SaveFileDialog
+                    {
+                        DefaultExt = ".xls",
+                        Filter = "Excel table (.xls)|*.xls"
+                    };
+                    var result = saveDialog.ShowDialog();
+                    if (result == true)
+                    {
+                        using (TextWriter sw = new StreamWriter(saveDialog.FileName))
+                        {
+                            var reportCreator = new ReportCreator();
+                            reportCreator.WriteTsv(clientsExport, sw);
+                            sw.Close();
+                        }
+                    }
+                },
+                () => Context.Clients.Count() != 0));
 
         public RelayCommand<object> ResetFilterClientCommand =>
             _resetFilterClientCommand ??
@@ -178,5 +212,14 @@ namespace HotelSystem.ViewModel
                 }));
 
         #endregion
+    }
+
+    internal class ClientInfo
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime Birthdate { get; set; }
+        public string Account { get; set; }
+        public string RoomNumber { get; set; }
     }
 }

@@ -85,11 +85,12 @@
                             </ComboBox.ItemTemplate>
                         </ComboBox>
 
-                        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <DockPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="{Binding RelativeSource={RelativeSource AncestorType=Grid, Mode=FindAncestor}, Path=ActualWidth}">
                             <Button Margin="5" Padding="10,0,10,0" Content="Add" Command="{Binding AddClientCommand}"/>
                             <Button Margin="5" Padding="10,0,10,0" Content="Update" Command="{Binding UpdateClientCommand}"/>
                             <Button Margin="5" Padding="10,0,10,0" Content="Delete" Command="{Binding DeleteClientCommand}"/>
-                        </StackPanel>
+                            <Button Margin="5" Padding="10,0,10,0" HorizontalAlignment="Right" Content="Export" Command="{Binding ExportClientsCommand}"/>
+                        </DockPanel>
 
                         <!-- < Clients Filter > -->
                         <Expander Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Header="Filters">
